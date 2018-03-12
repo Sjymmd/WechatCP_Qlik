@@ -33,21 +33,20 @@ def Qlik_Department():
         UserName.append(res['userlist'][x]['name'])
 
     weChatEnterprise_Push = WeChatEnterprise(corpsecret=CORPSECRET2)
-    kwargs = {
-        "articles": [
-            {
-                "title": "Qlik_报表推送",
-                "description": "",
-                "url": "https://sense-demo.qlik.com/single/?appid=06d53b15-2692-46ff-aaf6-651d7e1fa605&sheet=GahB",
-                "picurl": "https://www.qlik.com/us/-/media/images/qlik/global/qlik-logo-2x.png?h=104&w=336&la=en&hash=39A8170194871041E4D0613C94693254962A941F"
-            }
-
-        ]
-    }
 
     for x in range(len(UserId)):
         content = 'Hello！%s,以上您收到的是一份Qlik报表测试，请查阅！' % UserName[x]
-        print(content)
+        kwargs = {
+            "articles": [
+                {
+                    "title": "Qlik_报表推送",
+                    "description": "Hi!%s,请查收最新报表" %UserName[x],
+                    "url": "https://sense-demo.qlik.com/single/?appid=06d53b15-2692-46ff-aaf6-651d7e1fa605&sheet=GahB",
+                    "picurl": "https://www.qlik.com/us/-/media/images/qlik/global/qlik-logo-2x.png?h=104&w=336&la=en&hash=39A8170194871041E4D0613C94693254962A941F"
+                }
+
+            ]
+        }
         # weChatEnterprise_Push.send_msg_to_user(touser=[UserId[x]], content=content)
         weChatEnterprise_Push.send_msg_to_user(touser=[UserId[x]],content=content, msgtype = "news" ,**kwargs )
 
